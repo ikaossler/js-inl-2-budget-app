@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budgetapp</title>
+  </head>
+  <body>
+    <header><h1>Budgetapp</h1></header>
+    <main>
+      <form id="budget-form">
+        <label>
+          Amount:
+          <input type="number" id="amount" required />
+        </label>
+        <br />
+        <label>
+          Description:
+          <input type="text" id="description" required />
+        </label>
+        <label>
+          Category:
+          <select id="category">
+            <option value="food">Food</option>
+            <option value="rent">Rent</option>
+            <option value="shopping">Shopping</option>
+            <option value="salary">Salary</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+
+        <label>
+          <input type="radio" name="type" value="income" checked />
+          Income
+        </label>
+        <label>
+          <input type="radio" name="type" value="expense" />
+          Expense
+        </label>
+
+        <button type="submit">Save</button>
+      </form>
+
+       <section id="income-list">
+        <h2>Incomes</h2>
+        <ul></ul>
+      </section>
+      <section id="expense-list">
+        <h2>Expenses</h2>
+        <ul></ul>
+      </section>
+    </main>
+    <footer></footer>
+    <script src="/src/main.js"></script>
+  </body>
+</html>
