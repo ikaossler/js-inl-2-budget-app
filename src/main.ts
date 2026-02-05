@@ -13,30 +13,36 @@
 
 
 
-const budgetForm = document.getElementById("budget-form");
-const budgetPosts: BudgetPost[] = [];
+const budgetForm = document.getElementById("budget-form"); //Hitta formuläret
+
+//Tom array för objekten (budgetPost)
+const budgetPosts = [];
 
 budgetForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
+  event.preventDefault(); //eventlyssnare på submit plus stoppa omladdning av sidan
 
-  const amountInput = document.getElementById("amount") as HTMLInputElement;
+  //Hämtar fälten från html
+  const amountInput = document.getElementById("amount") as HTMLInputElement; //själva input-fältet
   const descriptionInput = document.getElementById("description") as HTMLInputElement;
   const categoryInput = document.getElementById("category") as HTMLSelectElement;
   const typeInput = document.querySelector('input[name="type"]:checked') as HTMLInputElement;
 
-  const amount = amountInput.value;
+  //Läser av innehållet från input-fälten 
+  const amount = amountInput.value; //texten/siffran som skrivs i fältet 
   const description = descriptionInput.value;
   const category = categoryInput.value;
   const type = typeInput.value;
 
-  const budgetPost: BudgetPost = {
+  //object av värdena
+  const budgetPost = {
     amount,
     description,
     category,
     type,
   };
 
+  //pusha objektet till listan(arrayen)
   budgetPosts.push(budgetPost);
-  console.log(budgetPost);
-  console.log(budgetPosts);
 });
+
+
