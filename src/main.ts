@@ -1,15 +1,35 @@
-/*Pseudokod steg 1-3
-1. Hitta formuläret i DOM med getElementById (id: budget-form)
-2. Lägg till en eventlyssnare på formuläret för submit
-3. När formuläret skickas:
-   a) stoppa omladdningen av sidan (preventDefault)
-   b) läs av värden från input-fälten (amount, description, category, type)
-   c) skapa ett objekt med dessa värden
-   d) lägg objektet i rätt lista (inkomst eller utgift)
-   e) uppdatera listan i HTML så användaren ser posten direkt
-   f) uppdatera totalbalansen och visa den på sidan
-   g) rensa formuläret för ny inmatning
-   */
+// @ts-nochec
+import './style.css'
+
+/*
+PSEUDOKOD - Budget-app
+
+1. INITIERING (när sidan laddas):
+   - Skapa tom array för budgetPosts
+   - Hämta alla HTML-element (formulär, listor, input-fält)
+   - Läs localStorage och ladda sparade poster om de finns
+   - Rendera befintliga poster
+   - Uppdatera balansen
+
+2. LÄGGA TILL POST (när formuläret skickas):
+   - Läs av formulärdata (belopp, beskrivning, kategori, typ)
+   - Skapa budgetItem-objekt
+   - Lägg till i budgetPosts-array
+   - Spara till localStorage
+   - Rendera om listorna
+   - Uppdatera balansen
+   - Töm formuläret
+
+3. RADERA POST (när X-knapp klickas):
+   - Ta bort post från array (baserat på index)
+   - Uppdatera localStorage
+   - Rendera om listorna
+   - Uppdatera balansen
+
+4. HJÄLPFUNKTIONER:
+   - renderBudgetPosts(): Loopar genom array, skapar <li> för varje post
+   - updateBalance(): Räknar ut total inkomst - utgift, visar summa
+*/
 
 
    //Tom array för objekten (budgetItem)
@@ -25,8 +45,6 @@ let budgetPosts = [];
   //Hämta income/expense-sektionerna
   const incomeList = document.querySelector('#income-list ul');
   const expenseList = document.querySelector('#expense-list ul');
-
-
 
 
 const totalBalanceElement = document.getElementById('total-balance');
@@ -82,36 +100,21 @@ function updateBalance() {
   updateBalance();
 });
 
-/*Pseudokod för localstorange
-4. När sidan laddas:
-a) Hämta data från localStorage med nyckeln "budgetPosts".
-b) Om data finns:
-  i) Konvertera data från JSON-sträng till array.
-  ii) Lägg till objekten i budgetPosts-arrayen.
-  iii) Rendera alla poster i listorna (inkomst och utgift).
-  iv) Uppdatera totalbalansen.
+function deleteBudgetPost(index: number) {
+  //1. ta bort posten från arrayen
+  budgetPosts.splice(index, 1);
 
-5. När formuläret skickas:
-a) Stoppa omladdningen av sidan (preventDefault).
-b) Läs av värden från formuläret (amount, description, category, type).
-c) Skapa ett budgetobjekt med värdena.
-d) Lägg till objektet i budgetPosts-arrayen.
-e) Spara hela budgetPosts-arrayen som JSON i localStorage.
-f) Rendera listorna på nytt för att visa alla poster.
-g) Uppdatera totalbalansen.
-h) Rensa formuläret för ny inmatning.
-*/
+  //2. Uppdatera localStorage
+  localStorage.setItem('budgetPosts', JSON.stringify(budgetPosts));
 
-//4a. Hämta sparad data från localStorage med nyckeln 'budgetPosts'
-//Detta hämtar en sträng eller null om inget är sparat
-const saveData = localStorage.getItem('budgetPosts'); 
-//conbst=nyckeord som betyder att variabeln ej kan byta värde senare
-//saveData är vad variabelns namn
-//localStorage är webbläsare-API som ger tillgång till lokalt lagrad data i webbläsaren.
-//LS sparar data som strängar (key-value pairs) som finns kvar även när webbläsaren är stängd
-//getItem är en metod på LS som hämtar värdet för en viss nyckel. 
+  //3.Rendera om listan
+  renderBudgetPosts();
 
+  //4. Uppdatera balansen
+  updateBalance();
+}
 
+const saveData = localStorage.getItem('budgetPosts'); // Skapar variabeln OCH hämtar data
   //Om det finns sparad data i saveData (dvs ej null)
   if (saveData) {
     budgetPosts = JSON.parse(saveData);
@@ -126,10 +129,19 @@ const saveData = localStorage.getItem('budgetPosts');
     incomeList!.innerHTML = '';
     expenseList!.innerHTML = '';
     //loopa varje post
-    budgetPosts.forEach(post => {
+    budgetPosts.forEach((post, index) => {
       //skapa <li>-element för varje post
       const li = document.createElement('li');
-      li.textContent = `${post.description}; ${post.amount} kr (${post.category})`;
+      li.textContent = `${post.description}: ${post.amount} kr (${post.category})`;
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'X';
+
+      deleteBtn.addEventListener('click', () => {
+        deleteBudgetPost(index);
+      });
+
+      li.appendChild(deleteBtn);
 
       //beroende på typen (income(expense)- lägg till <li> i rätt lista
       if (post.type === 'income') {
