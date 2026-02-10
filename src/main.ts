@@ -31,11 +31,19 @@ PSEUDOKOD - Budget-app
    - updateBalance(): Räknar ut total inkomst - utgift, visar summa
 */
 
+interface BudgetPost {
+  description: string;
+  amount: number;
+  category: string;
+  type: string;
+}
+
+
 //Tom array för objekten (budgetItem)
-let budgetPosts = [];
+let budgetPosts: BudgetPost[] = [];
 
 //Hitta formuläret
-const budgetForm = document.getElementById("budget-form");
+const budgetForm = document.getElementById("budgetForm") as HTMLFormElement;
 //Hämtar fälten från html
 const amountInput = document.getElementById("amount") as HTMLInputElement; //själva input-fältet
 const descriptionInput = document.getElementById(
@@ -84,7 +92,7 @@ budgetForm?.addEventListener("submit", (event) => {
   ) as HTMLInputElement;
 
   //Läser av innehållet från input-fälten
-  const amount = amountInput.value; //texten/siffran som skrivs i fältet
+  const amount = Number(amountInput.value); 
   const description = descriptionInput.value;
   const category = categoryInput.value;
   const type = typeInput.value;
