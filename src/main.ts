@@ -1,4 +1,3 @@
-// @ts-nochec
 import "./style.css";
 
 /*
@@ -31,19 +30,15 @@ PSEUDOKOD - Budget-app
    - updateBalance(): Räknar ut total inkomst - utgift, visar summa
 */
 
-interface BudgetPost {
-  description: string;
-  amount: number;
-  category: string;
-  type: string;
-}
+import type { BudgetPost } from "./models";
 
 
 //Tom array för objekten (budgetItem)
 let budgetPosts: BudgetPost[] = [];
 
 //Hitta formuläret
-const budgetForm = document.getElementById("budgetForm") as HTMLFormElement;
+const budgetForm = document.getElementById("budget-form") as HTMLFormElement;
+
 //Hämtar fälten från html
 const amountInput = document.getElementById("amount") as HTMLInputElement; //själva input-fältet
 const descriptionInput = document.getElementById(
@@ -57,7 +52,7 @@ const expenseList = document.querySelector("#expense-list ul");
 
 const totalBalanceElement = document.getElementById("total-balance");
 
-function updateBalance() {
+function updateBalance(): void {
   let incomeSum = 0;
   let expenseSum = 0;
 
@@ -90,6 +85,9 @@ budgetForm?.addEventListener("submit", (event) => {
   const typeInput = document.querySelector(
     'input[name="type"]:checked',
   ) as HTMLInputElement;
+
+  console.log(typeInput);
+
 
   //Läser av innehållet från input-fälten
   const amount = Number(amountInput.value); 
@@ -142,7 +140,7 @@ if (saveData) {
   updateBalance();
 }
 
-function renderBudgetPosts() {
+function renderBudgetPosts(): void {
   //rensa listorna först så det inte blir dubbla poster
   incomeList!.innerHTML = "";
   expenseList!.innerHTML = "";
