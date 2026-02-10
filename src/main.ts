@@ -1,5 +1,5 @@
 // @ts-nochec
-import './style.css'
+import "./style.css";
 
 /*
 PSEUDOKOD - Budget-app
@@ -31,50 +31,60 @@ PSEUDOKOD - Budget-app
    - updateBalance(): Räknar ut total inkomst - utgift, visar summa
 */
 
-
-   //Tom array för objekten (budgetItem)
+//Tom array för objekten (budgetItem)
 let budgetPosts = [];
 
-  //Hitta formuläret
-  const budgetForm = document.getElementById("budget-form"); 
-  //Hämtar fälten från html
-  const amountInput = document.getElementById("amount") as HTMLInputElement; //själva input-fältet
-  const descriptionInput = document.getElementById("description") as HTMLInputElement;
-  const categoryInput = document.getElementById("category") as HTMLSelectElement;
-  
-  //Hämta income/expense-sektionerna
-  const incomeList = document.querySelector('#income-list ul');
-  const expenseList = document.querySelector('#expense-list ul');
+//Hitta formuläret
+const budgetForm = document.getElementById("budget-form");
+//Hämtar fälten från html
+const amountInput = document.getElementById("amount") as HTMLInputElement; //själva input-fältet
+const descriptionInput = document.getElementById(
+  "description",
+) as HTMLInputElement;
+const categoryInput = document.getElementById("category") as HTMLSelectElement;
 
+//Hämta income/expense-sektionerna
+const incomeList = document.querySelector("#income-list ul");
+const expenseList = document.querySelector("#expense-list ul");
 
-const totalBalanceElement = document.getElementById('total-balance');
+const totalBalanceElement = document.getElementById("total-balance");
 
 function updateBalance() {
   let incomeSum = 0;
   let expenseSum = 0;
 
-  budgetPosts.forEach(post => {
+  budgetPosts.forEach((post) => {
     const amountNum = Number(post.amount); //gör sträng till nummer
-    if (post.type === 'income') {
+    if (post.type === "income") {
       incomeSum += amountNum;
     } else {
       expenseSum += amountNum;
     }
   });
-    const totalSum = incomeSum - expenseSum;
+  const totalSum = incomeSum - expenseSum;
 
-    if (totalBalanceElement) {
-      totalBalanceElement.textContent = totalSum + ' kr';
+  if (totalBalanceElement) {
+    totalBalanceElement.textContent = totalSum + " kr";
+
+    if (totalSum > 0) {
+      totalBalanceElement.style.color = "green";
+    } else if (totalSum < 0) {
+      totalBalanceElement.style.color = "red";
+    } else {
+      totalBalanceElement.style.color = "black";
     }
+  }
 }
 
-  budgetForm?.addEventListener("submit", (event) => {
+budgetForm?.addEventListener("submit", (event) => {
   event.preventDefault(); //eventlyssnare på submit plus stoppa omladdning av sidan
 
-  const typeInput = document.querySelector('input[name="type"]:checked') as HTMLInputElement;
+  const typeInput = document.querySelector(
+    'input[name="type"]:checked',
+  ) as HTMLInputElement;
 
-  //Läser av innehållet från input-fälten 
-  const amount = amountInput.value; //texten/siffran som skrivs i fältet 
+  //Läser av innehållet från input-fälten
+  const amount = amountInput.value; //texten/siffran som skrivs i fältet
   const description = descriptionInput.value;
   const category = categoryInput.value;
   const type = typeInput.value;
@@ -90,9 +100,9 @@ function updateBalance() {
   //pusha objektet till listan(arrayen)
   budgetPosts.push(budgetItem); //Lägg in budgetItem tll attayen (budgetPosts)
 
-   //konvertera budgetPosts-arrayen till en JSON.string
+  //konvertera budgetPosts-arrayen till en JSON.string
   //spara den med samma key 'budgetPosts'
-  localStorage.setItem('budgetPosts', JSON.stringify(budgetPosts)); 
+  localStorage.setItem("budgetPosts", JSON.stringify(budgetPosts));
 
   renderBudgetPosts();
 
@@ -105,7 +115,7 @@ function deleteBudgetPost(index: number) {
   budgetPosts.splice(index, 1);
 
   //2. Uppdatera localStorage
-  localStorage.setItem('budgetPosts', JSON.stringify(budgetPosts));
+  localStorage.setItem("budgetPosts", JSON.stringify(budgetPosts));
 
   //3.Rendera om listan
   renderBudgetPosts();
@@ -114,41 +124,40 @@ function deleteBudgetPost(index: number) {
   updateBalance();
 }
 
-const saveData = localStorage.getItem('budgetPosts'); // Skapar variabeln OCH hämtar data
-  //Om det finns sparad data i saveData (dvs ej null)
-  if (saveData) {
-    budgetPosts = JSON.parse(saveData);
-     //konvertera JSON-strängen till en JS-array
-    //JSON.parse tar strängen och gör om den till ett object som vi kan använda i koden
-    renderBudgetPosts(); //Visa datan direkt på sidan
-    updateBalance();
-  }
+const saveData = localStorage.getItem("budgetPosts"); // Skapar variabeln OCH hämtar data
+//Om det finns sparad data i saveData (dvs ej null)
+if (saveData) {
+  budgetPosts = JSON.parse(saveData);
+  //konvertera JSON-strängen till en JS-array
+  //JSON.parse tar strängen och gör om den till ett object som vi kan använda i koden
+  renderBudgetPosts(); //Visa datan direkt på sidan
+  updateBalance();
+}
 
-  function renderBudgetPosts() {
-    //rensa listorna först så det inte blir dubbla poster
-    incomeList!.innerHTML = '';
-    expenseList!.innerHTML = '';
-    //loopa varje post
-    budgetPosts.forEach((post, index) => {
-      //skapa <li>-element för varje post
-      const li = document.createElement('li');
-      li.textContent = `${post.description}: ${post.amount} kr (${post.category})`;
+function renderBudgetPosts() {
+  //rensa listorna först så det inte blir dubbla poster
+  incomeList!.innerHTML = "";
+  expenseList!.innerHTML = "";
+  //loopa varje post
+  budgetPosts.forEach((post, index) => {
+    //skapa <li>-element för varje post
+    const li = document.createElement("li");
+    li.textContent = `${post.description}: ${post.amount} kr (${post.category})`;
 
-      const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = 'X';
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "🗑️";
 
-      deleteBtn.addEventListener('click', () => {
-        deleteBudgetPost(index);
-      });
+    deleteBtn.addEventListener("click", () => {
+      deleteBudgetPost(index);
+    });
 
-      li.appendChild(deleteBtn);
+    li.appendChild(deleteBtn);
 
-      //beroende på typen (income(expense)- lägg till <li> i rätt lista
-      if (post.type === 'income') {
-        incomeList?.appendChild(li);
-      } else {
-        expenseList?.appendChild(li);
-      }
-    })
-  }
-
+    //beroende på typen (income(expense)- lägg till <li> i rätt lista
+    if (post.type === "income") {
+      incomeList?.appendChild(li);
+    } else {
+      expenseList?.appendChild(li);
+    }
+  });
+}

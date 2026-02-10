@@ -9,7 +9,7 @@
     <header><h1>Budgetapp</h1></header>
 
     <main>
-      <form id="budget-form"> 
+      <form id="budget-form">
         <label>
           Amount:
           <input type="number" id="amount" required />
@@ -32,32 +32,32 @@
         </label>
 
         <div class="radio-group">
-        <label>
-          <input type="radio" name="type" value="income" checked />
-          Income
-        </label>
-        <label>
-          <input type="radio" name="type" value="expense" />
-          Expense
-        </label>
+          <label>
+            <input type="radio" name="type" value="income" checked />
+            Income
+          </label>
+          <label>
+            <input type="radio" name="type" value="expense" />
+            Expense
+          </label>
         </div>
 
-        <button type="submit">Save</button>
+        <button type="submit" class="submit">Save</button>
       </form>
 
       <div class="list-container">
-      <section id="income-list">
-        <h2>Incomes</h2>
-        <ul></ul>
-      </section>
-      <section id="expense-list">
-        <h2>Expenses</h2>
-        <ul></ul>
-      </section>
+        <section id="income-list">
+          <h2>Incomes</h2>
+          <ul></ul>
+        </section>
+        <section id="expense-list">
+          <h2>Expenses</h2>
+          <ul></ul>
+        </section>
       </div>
 
       <section id="balance">
-        <h2>Balance: <span id="total-balance">0kr</span></h2>
+        <p>Balance: <span id="total-balance">0kr</span></p>
       </section>
     </main>
     <footer></footer>
