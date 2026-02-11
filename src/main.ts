@@ -46,6 +46,19 @@ const descriptionInput = document.getElementById(
 ) as HTMLInputElement;
 const categoryInput = document.getElementById("category") as HTMLSelectElement;
 
+// Ladda kategorier från JSON
+fetch('./categories.json')
+  .then(response => response.json())
+  .then((categories: Array<{value: string, label: string}>) => {
+    categories.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat.value;
+      option.textContent = cat.label;
+      categoryInput.appendChild(option);
+    });
+  })
+  .catch(error => console.error('Kunde inte ladda kategorier:', error));
+
 //Hämta income/expense-sektionerna
 const incomeList = document.querySelector("#income-list ul");
 const expenseList = document.querySelector("#expense-list ul");

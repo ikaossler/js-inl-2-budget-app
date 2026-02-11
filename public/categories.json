@@ -1,0 +1,7 @@
+[
+  { "value": "food", "label": "Food" },
+  { "value": "rent", "label": "Rent" },
+  { "value": "shopping", "label": "Shopping" },
+  { "value": "salary", "label": "Salary" },
+  { "value": "other", "label": "Other" }
+]
