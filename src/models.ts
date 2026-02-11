@@ -1,4 +1,4 @@
-export interface BudgetPost {
+export interface IBudgetPost {
   description: string;
   amount: number;
   category: string;

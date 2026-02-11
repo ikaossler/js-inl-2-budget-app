@@ -30,7 +30,7 @@ PSEUDOKOD - Budget-app
    - updateBalance(): Räknar ut total inkomst - utgift, visar summa
 */
 
-import type { BudgetPost } from "./models";
+import type { IBudgetPost } from "./models";
 
 
 //Tom array för objekten (budgetItem)
