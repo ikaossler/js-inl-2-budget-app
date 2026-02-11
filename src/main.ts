@@ -34,7 +34,7 @@ import type { IBudgetPost } from "./models";
 
 
 //Tom array för objekten (budgetItem)
-let budgetPosts: BudgetPost[] = [];
+let budgetPosts: IBudgetPost[] = [];
 
 //Hitta formuläret
 const budgetForm = document.getElementById("budget-form") as HTMLFormElement;
