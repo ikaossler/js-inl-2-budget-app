@@ -22,22 +22,22 @@
 
         <label>
           Category:
-          <select id="category">
+         <select id="category" aria-label="Choose category">
           </select>
         </label>
 
         <div class="radio-group">
           <label>
-            <input type="radio" name="type" value="income" checked />
+            <input type="radio" name="type" value="income" checked aria-label="Income" />
             Income
           </label>
           <label>
-            <input type="radio" name="type" value="expense" />
+            <input type="radio" name="type" value="expense" aria-label="Expense" />
             Expense
           </label>
         </div>
 
-        <button type="submit" class="submit">Save</button>
+        <button type="submit" class="submit" aria-label="save post">Save</button>
       </form>
 
       <div class="list-container">

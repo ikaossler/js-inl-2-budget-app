@@ -47,7 +47,7 @@ const descriptionInput = document.getElementById(
 const categoryInput = document.getElementById("category") as HTMLSelectElement;
 
 // Ladda kategorier från JSON
-fetch('./categories.json')
+fetch('categories.json')
   .then(response => response.json())
   .then((categories: Array<{value: string, label: string}>) => {
     categories.forEach(cat => {
@@ -83,11 +83,11 @@ function updateBalance(): void {
     totalBalanceElement.textContent = totalSum + " kr";
 
     if (totalSum > 0) {
-      totalBalanceElement.style.color = "green";
+      totalBalanceElement.style.color = "#6b7d5c";
     } else if (totalSum < 0) {
-      totalBalanceElement.style.color = "red";
+      totalBalanceElement.style.color = "#a0473a";
     } else {
-      totalBalanceElement.style.color = "black";
+      totalBalanceElement.style.color = "#3d3d3d";
     }
   }
 }
@@ -165,6 +165,8 @@ function renderBudgetPosts(): void {
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "🗑️";
+
+    deleteBtn.setAttribute("aria-label", `Delete ${post.description}`);
 
     deleteBtn.addEventListener("click", () => {
       deleteBudgetPost(index);
