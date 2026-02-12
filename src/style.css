@@ -1,16 +1,29 @@
-header {
-  display: flex;
-  align-items: center;
-  padding-left: 50px;
-  padding-bottom: 20px;
-}
-
 body {
-  background-color: rgb(241, 238, 238);
+  background-color: #f5f0e8;
+  font-family: 'Georgia', serif;
+  color: #3d3d3d;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  background-color: #d4a574;
+  padding: 20px 20px;
+  border-radius: 2px;
+  margin-bottom: 30px;
+    border-bottom-left-radius: 50px 10px;
+  border-bottom-right-radius: 50px 10px;
+}
+
+header h1 {
+  color: white;
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 #budget-form {
@@ -19,6 +32,11 @@ body {
   gap: 10px 20px;
   align-items: center;
   max-width: 400px;
+  background: white;
+  padding: 30px;
+  border: 1px solid #e0d5c7;
+  border-radius: 2px; 
+  box-shadow: rgba(61, 61, 61, 0.1);
 }
 
 #budget-form label {
@@ -75,10 +93,12 @@ body {
 }
 
 #income-list h2 {
-  background-color: rgb(113, 193, 113);
+  background-color: #6b7d5c;
+  color: white; 
 }
 #expense-list h2 {
-  background-color: rgb(214, 102, 102);
+  background-color: #a0473a;
+  color: white; 
 }
 
 #total-balance {
@@ -91,26 +111,28 @@ body {
   justify-content: center;
   width: 100%;
   margin-top: 20px;
-  border: 1px solid black;
+  border: 1px solid #e0d5c7;
   border-radius: 3px;
   font-size: 1.2rem;
+  background: white;
 }
 
 .submit {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
+  background-color: #7a8a62; 
+  color: #f5f0e8;            
+  padding: 8px 25px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .submit:hover {
-  background-color: #45a049;
-  transform: scale(1.05); 
+  background-color: #3d4432; 
+  transform: scale(1.05);
 }
+
 
 #income-list button,
 #expense-list button {
